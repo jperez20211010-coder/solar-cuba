@@ -11,32 +11,30 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      # 1. Descargar el código del repositorio
       - name: Checkout del código
         uses: actions/checkout@v4
 
-      # 2. Configurar Java 17 (obligatorio para tu proyecto)
       - name: Configurar Java 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin' # OpenJDK de Eclipse Temurin
+          distribution: 'temurin'
           java-version: '17'
 
-      # 3. Configurar Node.js 20 (Para evitar el error de deprecación de Node 24)
       - name: Configurar Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          
-      # 4. Configurar Gradle (La forma moderna de hacerlo en Actions)
-      - name: Configurar Gradle
-        uses: gradle/actions/setup-gradle@v3
 
-      # 5. Compilar el APK en modo Debug (esto es lo que fallaba antes)
+      # Instalar Gradle 8.5 en el servidor (compatible con tu AGP 8.5.2)
+      - name: Configurar Gradle 8.5
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.5'
+
+      # Compilar usando el Gradle global del servidor (porque no tienes el wrapper en el móvil)
       - name: Compilar APK Debug
         run: gradle assembleDebug
 
-      # 6. (Opcional) Subir el APK como artefacto para descargarlo desde GitHub
       - name: Subir APK generado
         uses: actions/upload-artifact@v4
         with:
