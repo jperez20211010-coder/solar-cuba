@@ -35,6 +35,7 @@ jobs:
       - name: Compilar APK Debug
         run: gradle assembleDebug
 
+      # Subir el APK generado para descargarlo desde GitHub
       - name: Subir APK generado
         uses: actions/upload-artifact@v4
         with:
