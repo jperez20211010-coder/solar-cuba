@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    // Si usas Kotlin 2.0 o superior, descomenta esta línea y elimina "composeOptions" abajo:
+    // id("org.jetbrains.kotlin.plugin.compose") 
 }
 
 android {
@@ -34,8 +36,9 @@ android {
         compose = true
     }
     
+    // Importante: Si usas Kotlin 1.9.x, mantén esto. Si usas Kotlin 2.0+, borra este bloque.
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.8"
+        kotlinCompilerExtensionVersion = "1.5.8" 
     }
 }
 
@@ -47,4 +50,8 @@ dependencies {
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation("androidx.core:core-ktx:1.12.0")
+    
+    // AGREGADO (Recomendado para evitar errores de Preview y tooling):
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
 }
