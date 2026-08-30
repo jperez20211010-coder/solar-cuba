@@ -20,19 +20,19 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
-      - name: Dar permisos a Gradle
-        run: chmod +x app/gradlew
-
-      - name: Compilar APK
-        working-directory: ./app
-        run: ./gradlew assembleDebug --no-daemon
+      - name: Compilar APK con Gradle (versión explícita)
+        uses: gradle/gradle-build-action@v3
+        with:
+          arguments: assembleDebug
+          build-root-directory: ./app
+          gradle-version: 8.5   # <--- Fuerza la versión de Gradle (sin necesidad de wrapper)
 
       - name: Verificar APK generado
-        run: ls -la app/app/build/outputs/apk/debug/
+        run: ls -la app/build/outputs/apk/debug/
 
       - name: Subir APK
         uses: actions/upload-artifact@v4
         with:
           name: SolarCuba-APK
-          path: app/app/build/outputs/apk/debug/*.apk
+          path: app/build/outputs/apk/debug/*.apk
           retention-days: 30
