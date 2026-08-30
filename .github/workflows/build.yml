@@ -32,15 +32,11 @@ jobs:
       - name: Configurar Gradle
         uses: gradle/actions/setup-gradle@v3
 
-      # 5. Dar permisos de ejecución al wrapper de Gradle
-      - name: Dar permisos a gradlew
-        run: chmod +x gradlew
-
-      # 6. Compilar el APK en modo Debug (esto es lo que fallaba antes)
+      # 5. Compilar el APK en modo Debug (esto es lo que fallaba antes)
       - name: Compilar APK Debug
-        run: ./gradlew assembleDebug
+        run: gradle assembleDebug
 
-      # 7. (Opcional) Subir el APK como artefacto para descargarlo desde GitHub
+      # 6. (Opcional) Subir el APK como artefacto para descargarlo desde GitHub
       - name: Subir APK generado
         uses: actions/upload-artifact@v4
         with:
