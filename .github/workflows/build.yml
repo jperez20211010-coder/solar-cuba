@@ -25,17 +25,17 @@ jobs:
         with:
           node-version: '20'
 
-      # Instalar Gradle 8.5 en el servidor (compatible con tu AGP 8.5.2)
-      - name: Configurar Gradle 8.5
+      # Actualizado: Instalar Gradle 8.7 (mínimo requerido por AGP 8.5.2)
+      - name: Configurar Gradle 8.7
         uses: gradle/actions/setup-gradle@v3
         with:
-          gradle-version: '8.5'
+          gradle-version: '8.7'
 
-      # Compilar usando el Gradle global del servidor (porque no tienes el wrapper en el móvil)
+      # Compilar usando el Gradle global del servidor
       - name: Compilar APK Debug
         run: gradle assembleDebug
 
-      # Subir el APK generado para descargarlo desde GitHub
+      # Subir el APK generado
       - name: Subir APK generado
         uses: actions/upload-artifact@v4
         with:
